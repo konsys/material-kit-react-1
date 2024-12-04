@@ -9,7 +9,7 @@ import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
 import { ThemeProvider } from 'src/theme/theme-provider';
 
 import { Iconify } from 'src/components/iconify';
-
+import { QueryClient, QueryClientProvider } from "react-query";
 // ----------------------------------------------------------------------
 
 export default function App() {
@@ -34,11 +34,13 @@ export default function App() {
       <Iconify width={24} icon="eva:github-fill" />
     </Fab>
   );
-
-  return (
+  const queryClient = new QueryClient();
+  return (  
     <ThemeProvider>
-      <Router />
-      {githubButton}
+      <QueryClientProvider client={queryClient}>
+        <Router />
+        {githubButton}
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }
