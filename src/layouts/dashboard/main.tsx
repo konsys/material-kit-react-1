@@ -5,22 +5,14 @@ import type { ContainerProps } from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-import {  useQuery } from '@tanstack/react-query';
+
 import { layoutClasses } from 'src/layouts/classes';
-import { uniswapQuote } from '../../modules/quote';
-import { TokensAvailable } from '../../modules/constants';
 
 // ----------------------------------------------------------------------
 
 export function Main({ children, sx, ...other }: BoxProps) {
 
-  const queryData = useQuery({
-    queryKey: ['quote'],
-    queryFn: () => uniswapQuote(1, TokensAvailable.WETH, TokensAvailable.USDT),
-    
-  });
 
-  console.log(queryData.data)
   return (
     <Box
       component="main"

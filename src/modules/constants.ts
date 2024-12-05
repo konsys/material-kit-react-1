@@ -1,4 +1,4 @@
-import { ChainId, Token } from '@uniswap/sdk-core'
+import { Token, ChainId } from '@uniswap/sdk-core'
 
 // Addresses
 
@@ -30,7 +30,7 @@ const USDT_TOKEN = new Token(
     '0xdAC17F958D2ee523a2206206994597C13D831ec7',
     6,
     'USDT',
-    'USD//T',
+    'USDT',
 )
 
 export type TokenName = 'WETH' | 'USDC' | 'USDT'

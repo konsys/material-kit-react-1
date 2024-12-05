@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
+
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
@@ -6,6 +8,8 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { AnalyticsNews } from '../analytics-news';
 import { AnalyticsTasks } from '../analytics-tasks';
+import { uniswapQuote } from '../../../modules/quote';
+import { TokensAvailable } from '../../../modules/constants';
 import { AnalyticsCurrentVisits } from '../analytics-current-visits';
 import { AnalyticsOrderTimeline } from '../analytics-order-timeline';
 import { AnalyticsWebsiteVisits } from '../analytics-website-visits';
@@ -17,6 +21,15 @@ import { AnalyticsConversionRates } from '../analytics-conversion-rates';
 // ----------------------------------------------------------------------
 
 export function OverviewAnalyticsView() {
+  const queryData = useQuery({
+    queryKey: ['quote'],
+    queryFn: () => uniswapQuote(1, TokensAvailable.WETH, TokensAvailable.USDT),
+    refetchInterval:15000
+  
+  });
+
+  console.log(queryData.isFetching, queryData.data)
+  
   return (
     <DashboardContent maxWidth="xl">
       <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
@@ -26,9 +39,10 @@ export function OverviewAnalyticsView() {
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
-            title="Weekly sales"
+            title={`${TokensAvailable.WETH.name} / ${TokensAvailable.USDT.name}`}
             percent={2.6}
-            total={714000}
+            total={queryData.data ? +queryData.data : 0}
+            shorten={false}
             icon={<img alt="icon" src="/assets/icons/glass/ic-glass-bag.svg" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],

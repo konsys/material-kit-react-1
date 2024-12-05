@@ -27,6 +27,7 @@ type Props = CardProps & {
     categories: string[];
     options?: ChartOptions;
   };
+  shorten?: boolean
 };
 
 export function AnalyticsWidgetSummary({
@@ -36,6 +37,7 @@ export function AnalyticsWidgetSummary({
   chart,
   percent,
   color = 'primary',
+  shorten = false,
   sx,
   ...other
 }: Props) {
@@ -109,7 +111,7 @@ export function AnalyticsWidgetSummary({
       >
         <Box sx={{ flexGrow: 1, minWidth: 112 }}>
           <Box sx={{ mb: 1, typography: 'subtitle2' }}>{title}</Box>
-          <Box sx={{ typography: 'h4' }}>{fShortenNumber(total)}</Box>
+          <Box sx={{ typography: 'h4' }}>{shorten ? fShortenNumber(total) : total}</Box>
         </Box>
 
         <Chart

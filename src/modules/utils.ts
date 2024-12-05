@@ -1,6 +1,7 @@
-import { BigNumberish, ethers } from "ethers"
+import type { BigNumberish } from "ethers";
 
-const READABLE_FORM_LEN = 4
+import { ethers } from "ethers"
+
 
 export function fromReadableAmount(
     amount: number,
@@ -9,6 +10,6 @@ export function fromReadableAmount(
     return ethers.parseUnits(amount.toString(), decimals)
 }
 
-export function toReadableAmount(rawAmount: number, decimals: number): string {
-    return ethers.formatUnits(rawAmount, decimals).slice(0, READABLE_FORM_LEN)
+export function toReadableAmount(rawAmount: number, decimals: number, sliceLen = 4): string {
+    return ethers.formatUnits(rawAmount, decimals).slice(0, sliceLen)
 }

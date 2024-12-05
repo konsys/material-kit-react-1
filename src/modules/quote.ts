@@ -1,14 +1,13 @@
-import { ethers, Provider } from 'ethers'
+
+import { ethers, type Provider } from 'ethers'
 import { type Token } from '@uniswap/sdk-core'
 import { computePoolAddress } from '@uniswap/v3-sdk'
+
+import { SwapConfig } from './config'
 import Quoter from '../uniswap/quoter.json'
 import IUniswapV3PoolABI from '../uniswap/pool.json'
-
-
-
+import { toReadableAmount, fromReadableAmount } from './utils'
 import { QUOTER_CONTRACT_ADDRESS, POOL_FACTORY_CONTRACT_ADDRESS } from './constants'
-import { fromReadableAmount, toReadableAmount } from './utils'
-import { SwapConfig } from './config'
 
 export async function uniswapQuote(
     inputAmout: number,
@@ -33,7 +32,7 @@ export async function uniswapQuote(
             0,
         )
 
-    return toReadableAmount(quotedAmountOut, token1.decimals)
+    return toReadableAmount(quotedAmountOut, token1.decimals, 18)
 }
 
 async function getPoolConstants(
