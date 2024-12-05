@@ -19,16 +19,23 @@ import { AnalyticsCurrentSubject } from '../analytics-current-subject';
 import { AnalyticsConversionRates } from '../analytics-conversion-rates';
 
 // ----------------------------------------------------------------------
-
+let prices:number[] = [];
 export function OverviewAnalyticsView() {
   const queryData = useQuery({
     queryKey: ['quote'],
     queryFn: () => uniswapQuote(1, TokensAvailable.WETH, TokensAvailable.USDT),
-    refetchInterval:15000
+    refetchInterval: 20000
   
   });
 
-  console.log(queryData.isFetching, queryData.data)
+const wPrice  = queryData.data ? +queryData.data : 0;
+const chartPrice = (wPrice * 100000).toString().substring(4, 10)
+if(prices.length > 8){
+  prices = [...prices.slice(1, prices.length), +chartPrice]
+} else {
+  prices.push(+chartPrice)
+}
+  console.log(wPrice, prices)
   
   return (
     <DashboardContent maxWidth="xl">
@@ -41,12 +48,12 @@ export function OverviewAnalyticsView() {
           <AnalyticsWidgetSummary
             title={`${TokensAvailable.WETH.name} / ${TokensAvailable.USDT.name}`}
             percent={2.6}
-            total={queryData.data ? +queryData.data : 0}
+            total={wPrice}
             shorten={false}
             icon={<img alt="icon" src="/assets/icons/glass/ic-glass-bag.svg" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-              series: [22, 8, 35, 50, 82, 84, 77, 12],
+              series: prices,
             }}
           />
         </Grid>
