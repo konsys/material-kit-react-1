@@ -1,16 +1,16 @@
 import { ethers, Provider } from 'ethers'
-
-import { computePoolAddress } from '@uniswap/v3-sdk'
-import Quoter from '@uniswap/v3-periphery/artifacts/contracts/lens/Quoter.sol/Quoter.json'
-import IUniswapV3PoolABI from '@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json'
-
-
 import { type Token } from '@uniswap/sdk-core'
+import { computePoolAddress } from '@uniswap/v3-sdk'
+import Quoter from '../uniswap/quoter.json'
+import IUniswapV3PoolABI from '../uniswap/pool.json'
+
+
+
 import { QUOTER_CONTRACT_ADDRESS, POOL_FACTORY_CONTRACT_ADDRESS } from './constants'
 import { fromReadableAmount, toReadableAmount } from './utils'
 import { SwapConfig } from './config'
 
-export async function quote(
+export async function uniswapQuote(
     inputAmout: number,
     token0: Token,
     token1: Token,
@@ -71,5 +71,5 @@ async function getPoolConstants(
 }
 
 export function getProvider(): Provider {
-    return new ethers.JsonRpcProvider(SwapConfig.rpc.local)
+    return new ethers.JsonRpcProvider(SwapConfig.rpc.mainnet)
 }

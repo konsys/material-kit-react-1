@@ -17,7 +17,12 @@
     "re:start": "yarn rm:all && yarn install && yarn dev",
     "re:build": "yarn rm:all && yarn install && yarn build",
     "re:build-npm": "npm run rm:all && npm install && npm run build",
-    "dev:host": "vite --host"
+    "dev:host": "vite --host",
+    "ch1": "npx hardhat node --fork https://mainnet.chainnodes.org/e284e639-5d41-484d-8ec3-be621cfb898f",
+    "ch2": "npx hardhat node --fork https://1rpc.io/eth",
+    "install:chain": "curl -L https://foundry.paradigm.xyz | bash && clear && echo $0 | exec && foundryup",
+    "chain": "anvil --chain-id 1337 --fork-url https://mainnet.chainnodes.org/e284e639-5d41-484d-8ec3-be621cfb898f --fork-block-number 17386454 --fork-chain-id 1",
+    "chain1": "anvil --fork-url https://1rpc.io/eth"
   },
   "engines": {
     "node": "20.x"
@@ -32,6 +37,7 @@
     "@iconify/react": "^5.0.2",
     "@mui/lab": "^5.0.0-alpha.173",
     "@mui/material": "^5.16.7",
+    "@tanstack/react-query": "^5.62.2",
     "@uniswap/sdk-core": "^6.0.0",
     "@uniswap/v3-sdk": "^3.19.0",
     "apexcharts": "^3.52.0",
@@ -42,7 +48,6 @@
     "react-apexcharts": "^1.4.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
-    "react-query": "^3.39.3",
     "react-router-dom": "^6.26.1",
     "simplebar-react": "^3.2.6"
   },
